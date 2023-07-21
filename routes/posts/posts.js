@@ -1,83 +1,15 @@
 const express = require("express");
 const postRoutes = express.Router();
-
+const {createPostCtrl,fetchPostCtrls,fetchSinglePostCtrl,deletePostCtrl,updatePostCtrl} = require("../../controllers/posts/posts");
 // Create post
-postRoutes.post("/",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"post Created",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-});
-
+postRoutes.post("/",createPostCtrl);
 // GET all posts
-postRoutes.get("/",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"posts displayed",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-
-});
-
+postRoutes.get("/",fetchPostCtrls);
 // get specific post 
-postRoutes.get("/:id",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"post details",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-
-});
-
+postRoutes.get("/:id",fetchSinglePostCtrl);
 // DELETE post
-postRoutes.delete("/:id",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"post deleted",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-
-});
-
+postRoutes.delete("/:id",deletePostCtrl);
 // edit/modify post
-postRoutes.put("/:id",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"post updated",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-
-});
+postRoutes.put("/:id",updatePostCtrl);
 
 module.exports = postRoutes;

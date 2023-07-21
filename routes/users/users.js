@@ -1,125 +1,25 @@
 const express = require("express");
 const userRoutes = express.Router();
+const {registerCtrl,loginCtrl,userDetailsCtrl,profileCtrl,uploadProfilePhotoCtrl,uploadCoverPhotoCtrl,updatePasswordCtrl,updateUserCtrl,logoutCtrl} = require("../../controllers/users/users");
 
 //register
-userRoutes.post("/register",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"User registerd",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-});
-
+userRoutes.post("/register",registerCtrl);
 //login
-userRoutes.post("/login",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"User login",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-});
+userRoutes.post("/login",loginCtrl);
 
 //get user details
-userRoutes.get("/:id",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"User Details!!",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-
-});
+userRoutes.get("/:id",userDetailsCtrl);
 //Get user profile details
-userRoutes.get("/profile/:id",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"User Profile Details",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-
-});
+userRoutes.get("/profile/:id",profileCtrl);
 //user profile-photo-upload
-userRoutes.put("/profile-photo-upload/:id",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"User profile photo upload",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-
-});
+userRoutes.put("/profile-photo-upload/:id",uploadProfilePhotoCtrl);
 //user cover-photo-upload
-userRoutes.put("/cover-photo-upload/:id",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"User cover photo upload",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-
-});
+userRoutes.put("/cover-photo-upload/:id",uploadCoverPhotoCtrl);
 //user password update/modified
-userRoutes.put("/update-password/:id",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"User password update",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-
-});
+userRoutes.put("/update-password/:id",updatePasswordCtrl);
+//user update/modified
+userRoutes.put("/update/:id",updateUserCtrl); 
 //logout user
-userRoutes.get("/logout",async (req,res)=>{
-    try {
-        res.json({
-            status:"Success",
-            user:"User loggedout",
-        });
-    } catch (error) {
-        res.json({
-            status:"Failed",
-            error:error,
-        })
-    }
-
-});
+userRoutes.get("/logout",logoutCtrl);
 
 module.exports = userRoutes;
