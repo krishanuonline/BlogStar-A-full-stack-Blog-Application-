@@ -4,12 +4,16 @@ const appErr = require("../../utils/appErr");
 //register
 const registerCtrl = async (req, res, next) => {
     const { fullName, email, password } = req.body;
+    //if empty submition
+    if (!fullName || !email || !password) {
+        return next(appErr("All filds are required", 400));
+    }
     try {
         //Check if user exist by email id
         const userFound = await User.findOne({ email });
         //if taken then throw error
         if (userFound) {
-            return next(appErr("User already exists",403));
+            return next(appErr("User already exists", 403));
         }
         //if not
         //hash user password
@@ -34,18 +38,21 @@ const registerCtrl = async (req, res, next) => {
     }
 };
 //login
-const loginCtrl = async (req, res) => {
+const loginCtrl = async (req, res, next) => {
     const { email, password } = req.body;
+    if (!email || !password) {
+        return next(appErr("All filds are required", 400));
+    }
     try {
         //check email exist or not
         const userFound = await User.findOne({ email }); //fetch from db
         if (!userFound) {
-            return res.json({ status: "failed", msg: "Invalid credential" });
+            return next(appErr("User Not found", 404));
         }
         //verify password
         const isPasswordValid = await bcrypt.compare(password, userFound.password);
         if (!isPasswordValid) {
-            return res.json({ status: "failed", msg: "Wrong credential" });
+            return next(appErr("Wrong credential", 401));
         }
         res.json({
             status: "Success",
