@@ -1,7 +1,7 @@
 const express = require("express");
 const userRoutes = express.Router();
 const {registerCtrl,loginCtrl,userDetailsCtrl,profileCtrl,uploadProfilePhotoCtrl,uploadCoverPhotoCtrl,updatePasswordCtrl,updateUserCtrl,logoutCtrl} = require("../../controllers/users/users");
-
+const protected = require("../../middleware/protected");//middleware
 //register
 userRoutes.post("/register",registerCtrl);
 //login
@@ -10,7 +10,7 @@ userRoutes.post("/login",loginCtrl);
 //get user details
 userRoutes.get("/:id",userDetailsCtrl);
 //Get user profile details
-userRoutes.get("/profile/:id",profileCtrl);
+userRoutes.get("/profile/:id",protected,profileCtrl);
 //user profile-photo-upload
 userRoutes.put("/profile-photo-upload/:id",uploadProfilePhotoCtrl);
 //user cover-photo-upload

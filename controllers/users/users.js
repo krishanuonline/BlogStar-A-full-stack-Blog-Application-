@@ -54,6 +54,9 @@ const loginCtrl = async (req, res, next) => {
         if (!isPasswordValid) {
             return next(appErr("Wrong credential", 401));
         }
+        //save the user into session
+        req.session.userAuth = userFound._id;
+        console.log(req.session);
         res.json({
             status: "Success",
             user: userFound,
