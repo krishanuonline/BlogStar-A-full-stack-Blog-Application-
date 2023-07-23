@@ -2,6 +2,12 @@ const express = require("express");
 const userRoutes = express.Router();
 const {registerCtrl,loginCtrl,userDetailsCtrl,profileCtrl,uploadProfilePhotoCtrl,uploadCoverPhotoCtrl,updatePasswordCtrl,updateUserCtrl,logoutCtrl} = require("../../controllers/users/users");
 const protected = require("../../middleware/protected");//middleware
+const multer = require("multer");
+const storage = require("../../config/cloudinary"); 
+
+//instance of multer / middleware
+const upload = multer({storage});
+
 //register
 userRoutes.post("/register",registerCtrl);
 //login
@@ -9,9 +15,9 @@ userRoutes.post("/login",loginCtrl);
 //Get user profile details
 userRoutes.get("/profile",protected,profileCtrl);
 //user profile-photo-upload
-userRoutes.put("/profile-photo-upload/:id",uploadProfilePhotoCtrl);
+userRoutes.put("/profile-photo-upload/",protected,upload.single("profile"),uploadProfilePhotoCtrl);
 //user cover-photo-upload
-userRoutes.put("/cover-photo-upload/:id",uploadCoverPhotoCtrl);
+userRoutes.put("/cover-photo-upload/",protected,upload.single("cover"),uploadCoverPhotoCtrl);
 //user password update/modified
 userRoutes.put("/update-password/:id",updatePasswordCtrl);
 //user update/modified

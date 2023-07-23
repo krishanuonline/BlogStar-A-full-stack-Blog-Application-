@@ -107,32 +107,48 @@ const profileCtrl = async (req, res) => {
 
 };
 //upload profile photo
-const uploadProfilePhotoCtrl = async (req, res) => {
+const uploadProfilePhotoCtrl = async (req, res, next) => {
     try {
+        //find the user to be updated
+        const userId = req.session.userAuth;
+        const userFound = await User.findById(userId);
+        //check user found
+        if (!userFound) {
+            return next(appErr("User not found",404));
+        }
+        //update profile photo
+        await User.findByIdAndUpdate(userId,{
+            profileImage:req.file.path,
+        },{new:true,})
         res.json({
             status: "Success",
-            user: "User profile photo upload",
+            data: "Successfully updated profile picture",
         });
     } catch (error) {
-        res.json({
-            status: "Failed",
-            error: error,
-        })
+        return next(appErr(error));
     }
 
 };
 //upload cover photo
-const uploadCoverPhotoCtrl = async (req, res) => {
+const uploadCoverPhotoCtrl = async (req, res, next) => {
     try {
+        //find the user to be updated
+        const userId = req.session.userAuth;
+        const userFound = await User.findById(userId);
+        //check user found
+        if (!userFound) {
+            return next(appErr("User not found",404));
+        }
+        //update cover photo
+        await User.findByIdAndUpdate(userId,{
+            coverImage:req.file.path,
+        },{new:true,})
         res.json({
             status: "Success",
-            user: "User cover photo upload",
+            data: "Cover photo upload",
         });
     } catch (error) {
-        res.json({
-            status: "Failed",
-            error: error,
-        })
+        return next(appErr(error));
     }
 
 };
