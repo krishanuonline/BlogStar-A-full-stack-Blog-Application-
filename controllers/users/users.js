@@ -71,9 +71,13 @@ const loginCtrl = async (req, res, next) => {
 //Details
 const userDetailsCtrl = async (req, res) => {
     try {
+        //get userId from params
+        const userId = req.params.id;
+        //find the user
+        const user = await User.findById(userId);
         res.json({
             status: "Success",
-            user: "User Details!!",
+            data: user,
         });
     } catch (error) {
         res.json({
@@ -86,9 +90,13 @@ const userDetailsCtrl = async (req, res) => {
 //profile
 const profileCtrl = async (req, res) => {
     try {
+        //get the login user
+        const userId = req.session.userAuth; //id
+        //find the user
+        const user = await User.findById(userId);
         res.json({
             status: "Success",
-            user: "User Profile Details",
+            data: user,
         });
     } catch (error) {
         res.json({
@@ -129,34 +137,49 @@ const uploadCoverPhotoCtrl = async (req, res) => {
 
 };
 //update password
-const updatePasswordCtrl = async (req, res) => {
+const updatePasswordCtrl = async (req, res, next) => {
+    const { password } = req.body;
     try {
-        res.json({
-            status: "Success",
-            user: "User password update",
-        });
+        //check if the user updating passwrd
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            const passwordHashed = await bcrypt.hash(password, salt);
+            //update user
+            await User.findByIdAndUpdate(req.params.id, {
+                password: passwordHashed,
+            }, { new: true });
+            res.json({
+                status: "Success",
+                user: "Password has been changed successfully",
+            });
+        }
     } catch (error) {
-        res.json({
-            status: "Failed",
-            error: error,
-        })
+        return next(appErr(error));
     }
 
 };
 //update user
-const updateUserCtrl = async (req, res) => {
+const updateUserCtrl = async (req, res, next) => {
+    const { email, fullName } = req.body;
     try {
+        //check email is taken or not
+        if (email) {
+            const emailTaken = User.findOne({ email });
+            if (emailTaken) {
+                return next(appErr("Email is taken", 403));
+            }
+        }
+        //update the user (if not taken)
+        const user = await User.findByIdAndUpdate(req.params.id, {
+            fullName, email
+        }, { new: true, });
         res.json({
             status: "Success",
-            user: "User update",
+            data: user,
         });
     } catch (error) {
-        res.json({
-            status: "Failed",
-            error: error,
-        })
+        return next(appErr(error.message));
     }
-
 };
 //logout
 const logoutCtrl = async (req, res) => {
