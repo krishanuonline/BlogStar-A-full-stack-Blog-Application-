@@ -15,7 +15,7 @@ postRoutes.get("/", fetchPostCtrls);
 // get specific post 
 postRoutes.get("/:id", fetchSinglePostCtrl);
 // DELETE post
-postRoutes.delete("/:id", deletePostCtrl);
+postRoutes.delete("/:id",protected, deletePostCtrl);
 // edit/modify post
 postRoutes.put("/:id", updatePostCtrl);
 
