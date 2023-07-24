@@ -21,8 +21,8 @@ const userSchema = new mongoose.Schema(
         coverImage: {
             type: String,
         },
-        posts: [{ type: mongoose.Schema.Types.ObjectId, red: "Post" }],
-        comments: [{ type: mongoose.Schema.Types.ObjectId, red: "Comment" }],
+        posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+        comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 
     },
     {

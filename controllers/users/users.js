@@ -93,7 +93,7 @@ const profileCtrl = async (req, res) => {
         //get the login user
         const userId = req.session.userAuth; //id
         //find the user
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).populate("posts");
         res.json({
             status: "Success",
             data: user,
@@ -114,12 +114,12 @@ const uploadProfilePhotoCtrl = async (req, res, next) => {
         const userFound = await User.findById(userId);
         //check user found
         if (!userFound) {
-            return next(appErr("User not found",404));
+            return next(appErr("User not found", 404));
         }
         //update profile photo
-        await User.findByIdAndUpdate(userId,{
-            profileImage:req.file.path,
-        },{new:true,})
+        await User.findByIdAndUpdate(userId, {
+            profileImage: req.file.path,
+        }, { new: true, })
         res.json({
             status: "Success",
             data: "Successfully updated profile picture",
@@ -137,12 +137,12 @@ const uploadCoverPhotoCtrl = async (req, res, next) => {
         const userFound = await User.findById(userId);
         //check user found
         if (!userFound) {
-            return next(appErr("User not found",404));
+            return next(appErr("User not found", 404));
         }
         //update cover photo
-        await User.findByIdAndUpdate(userId,{
-            coverImage:req.file.path,
-        },{new:true,})
+        await User.findByIdAndUpdate(userId, {
+            coverImage: req.file.path,
+        }, { new: true, })
         res.json({
             status: "Success",
             data: "Cover photo upload",
