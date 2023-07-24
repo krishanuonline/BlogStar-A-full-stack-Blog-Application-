@@ -17,6 +17,6 @@ postRoutes.get("/:id", fetchSinglePostCtrl);
 // DELETE post
 postRoutes.delete("/:id",protected, deletePostCtrl);
 // edit/modify post
-postRoutes.put("/:id", updatePostCtrl);
+postRoutes.put("/:id",protected,upload.single("file"), updatePostCtrl);
 
 module.exports = postRoutes;

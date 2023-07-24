@@ -69,13 +69,13 @@ const fetchSinglePostCtrl = async (req, res, next) => {
 
 };
 //delete post
-const deletePostCtrl = async (req, res,next) => {
+const deletePostCtrl = async (req, res, next) => {
     try {
         //find the post
         const post = await Post.findById(req.params.id);
         //check if the post belongs to the login user
-        if(post.user.toString() !== req.session.userAuth.toString()){
-            next(appErr("You are not allowed to delete this post",403));
+        if (post.user.toString() !== req.session.userAuth.toString()) {
+            next(appErr("You are not allowed to delete this post", 403));
         }
 
         //delete post
@@ -90,19 +90,42 @@ const deletePostCtrl = async (req, res,next) => {
 
 };
 //edit post
-const updatePostCtrl = async (req, res) => {
+const updatePostCtrl = async (req, res, next) => {
+    const { title, description, catagory } = req.body;
     try {
+        // find the post
+        const post = await Post.findById(req.params.id);
+
+        // check if the post belongs to the login user
+        if (post.user.toString() !== req.session.userAuth.toString()) {
+            next(appErr("You are not allowed to edit this post", 403));
+        }
+
+        // edit/update post
+        let updateData = {
+            title,
+            description,
+            catagory,
+        };
+
+        // Check if the image file is provided in the request
+        if (req.file) {
+            updateData.image = req.file.path;
+        }
+
+        const postUpdated = await Post.findByIdAndUpdate(
+            req.params.id,
+            updateData,
+            { new: true }
+        );
+
         res.json({
             status: "Success",
-            user: "post updated",
+            data: postUpdated,
         });
     } catch (error) {
-        res.json({
-            status: "Failed",
-            error: error,
-        })
+        next(appErr(error.message));
     }
-
 };
 
 
