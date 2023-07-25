@@ -93,7 +93,7 @@ const profileCtrl = async (req, res) => {
         //get the login user
         const userId = req.session.userAuth; //id
         //find the user
-        const user = await User.findById(userId).populate("posts");
+        const user = await User.findById(userId).populate("posts").populate("comments");
         res.json({
             status: "Success",
             data: user,
