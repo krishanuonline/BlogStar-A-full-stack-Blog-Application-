@@ -7,6 +7,28 @@ const storage = require("../../config/cloudinary");
 
 //instance of multer / middleware
 const upload = multer({storage});
+//--- Rendering Forms ---
+//login
+userRoutes.get("/login",(req,res)=>{
+    res.render("./../views/users/login.ejs");
+});
+//register
+userRoutes.get("/register",(req,res)=>{
+    res.render("./../views/users/register.ejs");
+});
+//profile
+userRoutes.get("/profile",(req,res)=>{
+    res.render("./../views/users/profile.ejs");
+});
+//upload profile photo
+userRoutes.get("/upload-profile-photo-form",(req,res)=>{
+    res.render("./../views/users/uploadProfilePhoto.ejs");
+});
+//upload cover photo
+userRoutes.get("/upload-cover-photo-form",(req,res)=>{
+    res.render("./../views/users/uploadCoverPhoto.ejs");
+});
+
 
 //register
 userRoutes.post("/register",registerCtrl);

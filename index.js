@@ -9,6 +9,12 @@ const commentRoutes = require("./routes/comments/comment");
 require("./config/dbConnect"); //db
 const globalErrorHandler = require("./middleware/globalErrorHandler");
 // ---------------- Middlewares -----------------------
+//configer EJS
+app.set("view engine","ejs");
+//serve static file
+app.use(express.static(__dirname,+"/public"));
+
+
 app.use(express.json()); //pass incomming data
 //session configration
 app.use(session({
@@ -20,6 +26,11 @@ app.use(session({
         ttl:24*60*60 // expire 1day
     }),
 }));
+//render home
+app.get("/",(req,res)=>{
+    res.render("index.ejs");
+})
+
 app.use("/api/v1/users",userRoutes); // 1.userRoutes
 app.use("/api/v1/posts",postRoutes); // 2.postRoutes
 app.use("/api/v1/comments",commentRoutes); // 3.commentRoutes
