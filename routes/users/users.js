@@ -28,6 +28,10 @@ userRoutes.get("/upload-profile-photo-form",(req,res)=>{
 userRoutes.get("/upload-cover-photo-form",(req,res)=>{
     res.render("./../views/users/uploadCoverPhoto.ejs");
 });
+//Update user
+userRoutes.get("/update-user-form",(req,res)=>{
+    res.render("./../views/users/updateUser.ejs");
+});
 
 
 //register

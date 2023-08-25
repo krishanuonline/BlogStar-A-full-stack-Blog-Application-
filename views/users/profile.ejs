@@ -15,6 +15,8 @@
     <title>Profile</title>
   </head>
   <body>
+    <!-- NavBar -->
+    <%-include("./../partials/navbar.ejs") %>
     <div class="profile-container">
       <header
         style="
@@ -158,45 +160,8 @@
     
       
     </section>
-    <!-- footer -->
-    <footer>
-      <div class="about">
-        <h1><span class="logo-text">BlogStar </span> <span>Blog</span></h1>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti a
-          recusandae, molestiae incidunt
-        </p>
-        <!-- Contacts -->
-        <div class="contact">
-          <span>
-            <i class="fas fa-phone"></i>
-            +91 8609801667
-          </span>
-          <span>
-            <i class="fas fa-envelope"></i>
-            
-            <a href="mailto:support@inovotek.com">
-              support@blogstar.com
-            </a>
-          </span>
-
-        </div>
-        <!-- socials -->
-        <div class="socials">
-          <a href="">
-            <i class="fab fa-youtube"></i>
-          </a>
-          <a href="">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="">
-            <i class="fab fa-facebook"></i>
-          </a>
-         
-    </footer>
+         <!-- Footer -->
+         <%-include("./../partials/footer.ejs") %
   </body>
 </html>
 
