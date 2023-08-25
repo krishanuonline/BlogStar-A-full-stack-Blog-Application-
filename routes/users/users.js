@@ -14,7 +14,9 @@ userRoutes.get("/login",(req,res)=>{
 });
 //register
 userRoutes.get("/register",(req,res)=>{
-    res.render("./../views/users/register.ejs");
+    res.render("./../views/users/register.ejs",{
+        error:""
+    });
 });
 //profile
 userRoutes.get("/profile",(req,res)=>{

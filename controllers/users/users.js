@@ -7,14 +7,19 @@ const registerCtrl = async (req, res, next) => {
     console.log(req.body);
     //if empty submition
     if (!fullName || !email || !password) {
-        return next(appErr("All filds are required", 400));
+        // return next(appErr("All filds are required", 400));
+        return res.render("users/register",{
+            error: "All field are required",
+         });
     }
     try {
         //Check if user exist by email id
         const userFound = await User.findOne({ email });
         //if taken then throw error
         if (userFound) {
-            return next(appErr("User already exists", 403));
+            return res.render("users/register",{
+                error: "User already exists",
+             });
         }
         //if not
         //hash user password
