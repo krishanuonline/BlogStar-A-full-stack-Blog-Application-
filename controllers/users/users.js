@@ -27,11 +27,8 @@ const registerCtrl = async (req, res, next) => {
             fullName,
             password: passwordHashed,
         });
-        console.log(user);
-        res.json({
-            status: "Success",
-            data: user,
-        });
+        //redirect
+        res.redirect("/api/v1/users/profile");
     } catch (error) {
         res.json({
             status: "Failed",
