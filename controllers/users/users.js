@@ -4,6 +4,7 @@ const appErr = require("../../utils/appErr");
 //register
 const registerCtrl = async (req, res, next) => {
     const { fullName, email, password } = req.body;
+    console.log(req.body);
     //if empty submition
     if (!fullName || !email || !password) {
         return next(appErr("All filds are required", 400));
@@ -26,6 +27,7 @@ const registerCtrl = async (req, res, next) => {
             fullName,
             password: passwordHashed,
         });
+        console.log(user);
         res.json({
             status: "Success",
             data: user,

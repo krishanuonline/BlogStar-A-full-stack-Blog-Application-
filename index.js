@@ -16,6 +16,8 @@ app.use(express.static(__dirname,+"/public"));
 
 
 app.use(express.json()); //pass incomming data
+app.use(express.urlencoded({extend:true})); //pass form data
+
 //session configration
 app.use(session({
     secret:process.env.SESSION_KEY,
