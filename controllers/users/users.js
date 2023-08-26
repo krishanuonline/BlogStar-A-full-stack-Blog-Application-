@@ -4,7 +4,6 @@ const appErr = require("../../utils/appErr");
 //register
 const registerCtrl = async (req, res, next) => {
     const { fullName, email, password } = req.body;
-    console.log(req.body);
     //if empty submition
     if (!fullName || !email || !password) {
         // return next(appErr("All filds are required", 400));
@@ -45,26 +44,28 @@ const registerCtrl = async (req, res, next) => {
 const loginCtrl = async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        return next(appErr("All filds are required", 400));
+        return res.render("users/login",{
+            error: "All field are required",
+         });
     }
     try {
         //check email exist or not
         const userFound = await User.findOne({ email }); //fetch from db
         if (!userFound) {
-            return next(appErr("User Not found", 404));
+            return res.render("users/login",{
+                error: "Invalid Credentials",
+             });
         }
         //verify password
         const isPasswordValid = await bcrypt.compare(password, userFound.password);
         if (!isPasswordValid) {
-            return next(appErr("Wrong credential", 401));
+            return res.render("users/login",{
+                error: "Invalid Credentials",
+             });
         }
         //save the user into session
         req.session.userAuth = userFound._id;
-        console.log(req.session);
-        res.json({
-            status: "Success",
-            user: userFound,
-        });
+        res.redirect("/api/v1/users/profile");
     } catch (error) {
         res.json({
             status: "Failed",

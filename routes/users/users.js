@@ -10,7 +10,9 @@ const upload = multer({storage});
 //--- Rendering Forms ---
 //login
 userRoutes.get("/login",(req,res)=>{
-    res.render("./../views/users/login.ejs");
+    res.render("./../views/users/login.ejs",{
+        error:""
+    });
 });
 //register
 userRoutes.get("/register",(req,res)=>{
