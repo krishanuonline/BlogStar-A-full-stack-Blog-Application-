@@ -204,17 +204,10 @@ const updateUserCtrl = async (req, res, next) => {
 };
 //logout
 const logoutCtrl = async (req, res) => {
-    try {
-        res.json({
-            status: "Success",
-            user: "User loggedout",
-        });
-    } catch (error) {
-        res.json({
-            status: "Failed",
-            error: error,
-        })
-    }
+    //destroy session
+    req.session.destroy(()=>{
+        res.redirect("/api/v1/users/login");    
+    });
 
 };
 

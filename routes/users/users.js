@@ -52,9 +52,9 @@ userRoutes.put("/cover-photo-upload/",protected,upload.single("cover"),uploadCov
 userRoutes.put("/update-password/:id",updatePasswordCtrl);
 //user update/modified
 userRoutes.put("/update/:id",updateUserCtrl); 
-//get user details
-userRoutes.get("/:id",userDetailsCtrl);
 //logout user
 userRoutes.get("/logout",logoutCtrl);
+//get user details
+userRoutes.get("/:id",userDetailsCtrl);
 
 module.exports = userRoutes;
