@@ -99,10 +99,9 @@ const profileCtrl = async (req, res) => {
         const userId = req.session.userAuth; //id
         //find the user
         const user = await User.findById(userId).populate("posts").populate("comments");
-        res.json({
-            status: "Success",
-            data: user,
-        });
+        
+        res.render("users/profile",{user})
+
     } catch (error) {
         res.json({
             status: "Failed",
@@ -114,23 +113,33 @@ const profileCtrl = async (req, res) => {
 //upload profile photo
 const uploadProfilePhotoCtrl = async (req, res, next) => {
     try {
+        //check if file exist
+        if(!req.file){
+            return res.render("users/uploadProfilePhoto",{
+                error:"Please upload image!"
+            });
+        }
+
         //find the user to be updated
         const userId = req.session.userAuth;
         const userFound = await User.findById(userId);
         //check user found
         if (!userFound) {
-            return next(appErr("User not found", 404));
+            return res.render("users/uploadProfilePhoto",{
+                error:"User not found!"
+            });
         }
         //update profile photo
         await User.findByIdAndUpdate(userId, {
             profileImage: req.file.path,
         }, { new: true, })
-        res.json({
-            status: "Success",
-            data: "Successfully updated profile picture",
-        });
+        //redirect
+        res.redirect("/api/v1/users/profile");
     } catch (error) {
-        return next(appErr(error));
+        return res.render("users/profile",{
+            error:error.message,
+        });
+        
     }
 
 };

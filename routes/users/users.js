@@ -20,10 +20,7 @@ userRoutes.get("/register",(req,res)=>{
         error:""
     });
 });
-//profile
-userRoutes.get("/profile",(req,res)=>{
-    res.render("./../views/users/profile.ejs");
-});
+
 //upload profile photo
 userRoutes.get("/upload-profile-photo-form",(req,res)=>{
     res.render("./../views/users/uploadProfilePhoto.ejs");

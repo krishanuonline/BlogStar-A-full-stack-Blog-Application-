@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const mongoStore = require("connect-mongo");
+const methodOverride = require("method-override");
 const userRoutes = require("./routes/users/users");
 const postRoutes = require("./routes/posts/posts");
 const commentRoutes = require("./routes/comments/comment");
@@ -16,7 +17,10 @@ app.use(express.static(__dirname,+"/public"));
 
 
 app.use(express.json()); //pass incomming data
-app.use(express.urlencoded({extend:true})); //pass form data
+app.use(express.urlencoded({extended:true})); //pass form data
+
+//method override
+app.use(methodOverride("_method"));
 
 //session configration
 app.use(session({
