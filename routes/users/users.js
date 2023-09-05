@@ -23,11 +23,11 @@ userRoutes.get("/register",(req,res)=>{
 
 //upload profile photo
 userRoutes.get("/upload-profile-photo-form",(req,res)=>{
-    res.render("./../views/users/uploadProfilePhoto.ejs");
+    res.render("./../views/users/uploadProfilePhoto.ejs",{error:""});
 });
 //upload cover photo
 userRoutes.get("/upload-cover-photo-form",(req,res)=>{
-    res.render("./../views/users/uploadCoverPhoto.ejs");
+    res.render("./../views/users/uploadCoverPhoto.ejs",{error:""});
 });
 //Update user
 userRoutes.get("/update-user-form",(req,res)=>{

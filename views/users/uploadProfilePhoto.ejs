@@ -22,13 +22,12 @@
       <p>
         <!-- upload icon -->
       </p>
-      <% if(error){ %>
+      <%if(error){%>
         <small class="error">
           <i class="fas fa-exclamation-circle"></i>
-          
           <%=error%>
         </small>
-        <%}%>
+      <%}%>
       <form action="/api/v1/users/profile-photo-upload?_method=PUT" method="POST" enctype="multipart/form-data">
         <label for="email">Select Imgae</label>
         <input type="file" name="profile" id="profile" />
