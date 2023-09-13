@@ -31,6 +31,8 @@ const registerCtrl = async (req, res, next) => {
             fullName,
             password: passwordHashed,
         });
+        // console.log(user);
+        req.session.userAuth = user._id;
         //redirect
         res.redirect("/api/v1/users/profile");
     } catch (error) {
@@ -206,21 +208,20 @@ const updateUserCtrl = async (req, res, next) => {
         }
 
         //check email is taken or not
-        if (email) {
-            const emailTaken = User.findOne({ email });
-            if (emailTaken) {
-                return res.render("users/updateUser", {
-                    error: "Email already taken!",
-                    user: "",
-                });
-            }
-        }
-        console.log(req.session.userAuth);
+        // if (email) {
+        //     const emailTaken = await User.findOne({ email });
+        //     console.log(emailTaken);
+        //     if (emailTaken) {
+        //         return res.render("users/updateUser", {
+        //             error: "Email already taken!",
+        //             user: "",
+        //         });
+        //     }
+        // }
         //update the user (if email not taken)
         const response = await User.findByIdAndUpdate(req.session.userAuth, {
             fullName, email
         }, { new: true, });
-        console.log(response);
         res.redirect("/api/v1/users/profile");
 
 
