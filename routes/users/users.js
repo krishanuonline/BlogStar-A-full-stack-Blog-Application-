@@ -30,9 +30,9 @@ userRoutes.get("/upload-cover-photo-form",(req,res)=>{
     res.render("./../views/users/uploadCoverPhoto.ejs",{error:""});
 });
 //Update user
-userRoutes.get("/update-user-form",(req,res)=>{
-    res.render("./../views/users/updateUser.ejs");
-});
+// userRoutes.get("/update-user-form",(req,res)=>{
+//     res.render("./../views/users/updateUser.ejs");
+// });
 
 
 //register
@@ -48,7 +48,7 @@ userRoutes.put("/cover-photo-upload/",protected,upload.single("cover"),uploadCov
 //user password update/modified
 userRoutes.put("/update-password/:id",updatePasswordCtrl);
 //user update/modified
-userRoutes.put("/update/:id",updateUserCtrl); 
+userRoutes.put("/update",updateUserCtrl); 
 //logout user
 userRoutes.get("/logout",logoutCtrl);
 //get user details
