@@ -8,7 +8,9 @@ const userRoutes = require("./routes/users/users");
 const postRoutes = require("./routes/posts/posts");
 const commentRoutes = require("./routes/comments/comment");
 require("./config/dbConnect"); //db
+const Post = require("./models/post/Post"); // DB POST Model
 const globalErrorHandler = require("./middleware/globalErrorHandler");
+
 // ---------------- Middlewares -----------------------
 //configer EJS
 app.set("view engine","ejs");
@@ -45,8 +47,14 @@ app.use((req,res,next)=>{
 
 
 //render home
-app.get("/",(req,res)=>{
-    res.render("index.ejs");
+app.get("/",async(req,res)=>{
+    // res.render("index.ejs");
+    try {
+        const posts = await Post.find();
+        res.render("index.ejs",{posts});
+    } catch (error) {
+        res.render("index",{error:error.message});
+    }
 })
 
 app.use("/api/v1/users",userRoutes); // 1.userRoutes
