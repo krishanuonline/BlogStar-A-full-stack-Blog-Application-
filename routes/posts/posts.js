@@ -8,6 +8,14 @@ const storage = require("../../config/cloudinary");
 const upload = multer({
     storage,
 });
+
+//forms
+postRoutes.get("/get-post-form",(req,res)=>{
+    res.render("posts/addPost.ejs",{error:""});
+})
+
+
+
 // Create post
 postRoutes.post("/", protected, upload.single("file"), createPostCtrl);
 // GET all posts
