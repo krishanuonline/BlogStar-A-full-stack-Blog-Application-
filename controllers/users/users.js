@@ -84,12 +84,12 @@ const userDetailsCtrl = async (req, res) => {
         const user = await User.findById(userId);
         res.render("users/updateUser", {
             user,
+            error:"",
         });
     } catch (error) {
-        res.json({
-            status: "Failed",
-            error: error,
-        })
+        res.render("users/updateUser", {
+           error: error.message,
+        });
     }
 
 };
