@@ -29,10 +29,11 @@ userRoutes.get("/upload-profile-photo-form",(req,res)=>{
 userRoutes.get("/upload-cover-photo-form",(req,res)=>{
     res.render("./../views/users/uploadCoverPhoto.ejs",{error:""});
 });
-//Update user
-// userRoutes.get("/update-user-form",(req,res)=>{
-//     res.render("./../views/users/updateUser.ejs");
-// });
+
+//Update pass
+userRoutes.get("/update-password",(req,res)=>{
+    res.render("./../views/users/updatePassword.ejs",{error:""});
+});
 
 
 //register
@@ -46,7 +47,7 @@ userRoutes.put("/profile-photo-upload/",protected,upload.single("profile"),uploa
 //user cover-photo-upload
 userRoutes.put("/cover-photo-upload/",protected,upload.single("cover"),uploadCoverPhotoCtrl);
 //user password update/modified
-userRoutes.put("/update-password/:id",updatePasswordCtrl);
+userRoutes.put("/update-password/",updatePasswordCtrl);
 //user update/modified
 userRoutes.put("/update",updateUserCtrl); 
 //logout user
