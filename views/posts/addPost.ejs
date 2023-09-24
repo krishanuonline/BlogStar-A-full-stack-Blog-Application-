@@ -25,11 +25,18 @@
         <!-- add icon -->
         <i class="fas fa-plus"></i>
       </h1>
-      <small class="error">
-        <i class="fas fa-exclamation-circle"></i>
-        Invalid Credentials
-      </small>
-      <form action="/login" method="POST">
+      
+      <% if(error){ %>
+        <small class="error">
+          <i class="fas fa-exclamation-circle"></i>
+          
+          <%=error%>
+        </small>
+        <%}%>
+      
+
+
+      <form action="/api/v1/posts" method="POST" enctype="multipart/form-data" >
         <!-- Post Title -->
         <div class="input-wrapper">
           <label for="name">Post Title</label>
@@ -60,7 +67,7 @@
         <!-- Post Image -->
         <div class="input-wrapper">
           <label for="image">Post Image</label>
-          <input type="file" name="image" id="image" />
+          <input type="file" name="file" id="image" />
           <!-- err -->
         </div>
 

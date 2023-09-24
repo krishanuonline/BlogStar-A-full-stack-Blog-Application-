@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema(
         catagory: {
             type: String,
             required: true,
-            enum: ["technology", "management", "finance", "medical", "others"],
+            enum: ["Technology", "Management", "Finance", "Medical", "Others"],
         },
         image: {
             type: String,

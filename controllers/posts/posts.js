@@ -8,7 +8,7 @@ const createPostCtrl = async (req, res, next) => {
     const { title, description, catagory, user } = req.body;
     try {
         if (!title || !description || !catagory || !req.file) {
-            return next(appErr("All fields are required", 400));
+            return res.render("posts/addPost",{error:"All fields are required"});
         }
 
         // find the user
@@ -30,12 +30,9 @@ const createPostCtrl = async (req, res, next) => {
         // resave the user
         await userFound.save();
 
-        res.json({
-            status: "Success",
-            data: "Post Created",
-        });
+        res.redirect("/");
     } catch (error) {
-        next(appErr(error.message));
+        return res.render("posts/addPost",{error:error.message});
     }
 };
 
